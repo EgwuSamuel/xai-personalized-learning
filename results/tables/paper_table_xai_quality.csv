@@ -1,0 +1,4 @@
+Dataset,Test ROC-AUC,SHAP-LIME Spearman (|attr.|),SHAP-LIME top-5 overlap,SHAP-LIME sign agreement,Global SHAP stability (Spearman),Global SHAP top-5 stability,LIME local stability (Spearman),LIME local top-5 stability
+Kaggle (v1),0.503,0.117,0.433,0.687,0.877,0.924,0.424,0.6
+"UCI, end of sem. 1",0.916,0.461,0.484,0.981,0.933,0.92,0.667,0.741
+"OULAD, day 56",0.81,0.66,0.725,0.999,0.927,0.818,0.761,0.862

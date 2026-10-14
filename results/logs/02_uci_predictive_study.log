@@ -1,0 +1,81 @@
+UCI scenario=enrolment: X=(4424, 24), dropout prevalence=0.321
+  uci_enrolment LR    weight+threshold  AUC=0.822 PR-AUC=0.736 (44s)
+  uci_enrolment DT    weight+threshold  AUC=0.779 PR-AUC=0.678 (30s)
+  uci_enrolment RF    weight+threshold  AUC=0.819 PR-AUC=0.733 (408s)
+  uci_enrolment XGB   weight+threshold  AUC=0.827 PR-AUC=0.748 (150s)
+  uci_enrolment LGBM  weight+threshold  AUC=0.825 PR-AUC=0.746 (78s)
+  uci_enrolment MLP   weight+threshold  AUC=0.817 PR-AUC=0.730 (112s)
+  uci_enrolment EBM   weight+threshold  AUC=0.821 PR-AUC=0.738 (2033s)
+UCI scenario=sem1: X=(4424, 30), dropout prevalence=0.321
+  uci_sem1 LR    weight+threshold  AUC=0.906 PR-AUC=0.860 (32s)
+  uci_sem1 DT    weight+threshold  AUC=0.872 PR-AUC=0.801 (27s)
+  uci_sem1 RF    weight+threshold  AUC=0.898 PR-AUC=0.850 (422s)
+  uci_sem1 XGB   weight+threshold  AUC=0.905 PR-AUC=0.862 (166s)
+  uci_sem1 LGBM  weight+threshold  AUC=0.907 PR-AUC=0.863 (88s)
+  uci_sem1 MLP   weight+threshold  AUC=0.905 PR-AUC=0.858 (122s)
+  uci_sem1 EBM   weight+threshold  AUC=0.902 PR-AUC=0.859 (2997s)
+UCI scenario=sem2: X=(4424, 36), dropout prevalence=0.321
+  uci_sem2 LR    weight+threshold  AUC=0.923 PR-AUC=0.885 (57s)
+  uci_sem2 DT    weight+threshold  AUC=0.895 PR-AUC=0.838 (38s)
+  uci_sem2 RF    weight+threshold  AUC=0.918 PR-AUC=0.876 (493s)
+  uci_sem2 XGB   weight+threshold  AUC=0.925 PR-AUC=0.888 (185s)
+  uci_sem2 LGBM  weight+threshold  AUC=0.926 PR-AUC=0.889 (89s)
+  uci_sem2 MLP   weight+threshold  AUC=0.922 PR-AUC=0.886 (114s)
+  uci_sem2 EBM   weight+threshold  AUC=0.919 PR-AUC=0.882 (3565s)
+          dataset model  roc_auc_mean  pr_auc_mean  balanced_accuracy_mean  recall_dropout_mean  f1_dropout_mean  mcc_mean
+0   uci_enrolment    DT         0.779        0.678                   0.704                0.677            0.602     0.392
+1   uci_enrolment   EBM         0.821        0.738                   0.739                0.699            0.645     0.462
+2   uci_enrolment  LGBM         0.825        0.746                   0.742                0.699            0.649     0.470
+3   uci_enrolment    LR         0.822        0.736                   0.741                0.699            0.647     0.466
+4   uci_enrolment   MLP         0.817        0.730                   0.738                0.700            0.644     0.460
+5   uci_enrolment    RF         0.819        0.733                   0.733                0.680            0.637     0.454
+6   uci_enrolment   XGB         0.827        0.748                   0.742                0.701            0.648     0.469
+7        uci_sem1    DT         0.872        0.801                   0.803                0.741            0.731     0.603
+8        uci_sem1   EBM         0.902        0.859                   0.825                0.746            0.765     0.659
+9        uci_sem1  LGBM         0.907        0.863                   0.831                0.769            0.771     0.664
+10       uci_sem1    LR         0.906        0.860                   0.829                0.770            0.768     0.659
+11       uci_sem1   MLP         0.905        0.858                   0.824                0.758            0.761     0.650
+12       uci_sem1    RF         0.898        0.850                   0.821                0.742            0.759     0.650
+13       uci_sem1   XGB         0.905        0.862                   0.831                0.758            0.773     0.669
+14       uci_sem2    DT         0.895        0.838                   0.823                0.747            0.762     0.653
+15       uci_sem2   EBM         0.919        0.882                   0.845                0.776            0.793     0.699
+16       uci_sem2  LGBM         0.926        0.889                   0.849                0.777            0.800     0.711
+17       uci_sem2    LR         0.923        0.885                   0.853                0.781            0.805     0.719
+18       uci_sem2   MLP         0.922        0.886                   0.846                0.778            0.795     0.702
+19       uci_sem2    RF         0.918        0.876                   0.845                0.774            0.794     0.701
+20       uci_sem2   XGB         0.925        0.888                   0.849                0.773            0.801     0.713
+    metric  friedman_chi2  p_value  n_folds  n_models        dataset
+0   pr_auc        44.2714   0.0000       10         7  uci_enrolment
+1  roc_auc        34.6286   0.0000       10         7  uci_enrolment
+2      mcc        26.3143   0.0002       10         7  uci_enrolment
+3   pr_auc        34.8429   0.0000       10         7       uci_sem1
+4  roc_auc        32.3143   0.0000       10         7       uci_sem1
+5      mcc        30.0429   0.0000       10         7       uci_sem1
+6   pr_auc        35.1857   0.0000       10         7       uci_sem2
+7  roc_auc        41.2057   0.0000       10         7       uci_sem2
+8      mcc        29.3131   0.0001       10         7       uci_sem2
+  uci_sem1 LR    none              AUC=0.906 PR-AUC=0.861 (20s)
+  uci_sem1 LR    weight            AUC=0.906 PR-AUC=0.860 (20s)
+  uci_sem1 LR    smote             AUC=0.904 PR-AUC=0.858 (25s)
+  uci_sem1 LR    weight+threshold  AUC=0.906 PR-AUC=0.860 (26s)
+  uci_sem1 RF    none              AUC=0.898 PR-AUC=0.850 (346s)
+  uci_sem1 RF    weight            AUC=0.898 PR-AUC=0.850 (321s)
+  uci_sem1 RF    smote             AUC=0.900 PR-AUC=0.853 (554s)
+  uci_sem1 RF    weight+threshold  AUC=0.898 PR-AUC=0.850 (425s)
+  uci_sem1 XGB   none              AUC=0.907 PR-AUC=0.864 (152s)
+  uci_sem1 XGB   weight            AUC=0.905 PR-AUC=0.862 (169s)
+  uci_sem1 XGB   smote             AUC=0.906 PR-AUC=0.863 (330s)
+  uci_sem1 XGB   weight+threshold  AUC=0.905 PR-AUC=0.862 (208s)
+   model          strategy  pr_auc_mean  recall_dropout_mean  precision_dropout_mean  balanced_accuracy_mean  f1_dropout_mean
+0     LR              none        0.861                0.696                   0.841                   0.817            0.762
+1     LR             smote        0.858                0.795                   0.742                   0.832            0.767
+2     LR            weight        0.860                0.798                   0.744                   0.834            0.770
+3     LR  weight+threshold        0.860                0.770                   0.768                   0.829            0.768
+4     RF              none        0.850                0.672                   0.850                   0.808            0.751
+5     RF             smote        0.853                0.719                   0.807                   0.819            0.760
+6     RF            weight        0.850                0.760                   0.757                   0.822            0.758
+7     RF  weight+threshold        0.850                0.742                   0.778                   0.821            0.759
+8    XGB              none        0.864                0.698                   0.849                   0.820            0.766
+9    XGB             smote        0.863                0.714                   0.838                   0.824            0.770
+10   XGB            weight        0.862                0.780                   0.764                   0.833            0.772
+11   XGB  weight+threshold        0.862                0.758                   0.790                   0.831            0.773

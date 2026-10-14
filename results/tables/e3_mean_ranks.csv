@@ -1,0 +1,8 @@
+model,uci_enrolment|pr_auc,uci_enrolment|roc_auc,uci_enrolment|mcc,uci_sem1|pr_auc,uci_sem1|roc_auc,uci_sem1|mcc,uci_sem2|pr_auc,uci_sem2|roc_auc,uci_sem2|mcc
+XGB,1.6,2.0,2.8,2.6,3.2,2.1,2.3,2.0,3.1
+LGBM,2.0,2.7,3.1,2.4,2.7,3.1,2.4,1.95,3.3
+EBM,3.4,3.5,3.5,3.3,4.2,3.4,4.1,4.7,4.5
+LR,4.3,3.5,3.3,3.5,2.7,3.4,3.6,3.55,2.25
+MLP,4.8,4.4,3.8,3.8,3.1,4.2,3.4,3.7,4.05
+RF,4.9,4.9,4.5,5.4,5.1,5.0,5.2,5.1,3.8
+DT,7.0,7.0,7.0,7.0,7.0,6.8,7.0,7.0,7.0

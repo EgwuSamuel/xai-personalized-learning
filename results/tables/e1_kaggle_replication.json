@@ -1,0 +1,27 @@
+{
+  "roc_auc": 0.5310637372910303,
+  "pr_auc": 0.21116511618557976,
+  "brier": 0.15574405000000002,
+  "prevalence": 0.1885,
+  "f1_dropout": 0.0,
+  "recall_dropout": 0.0,
+  "precision_dropout": 0.0,
+  "balanced_accuracy": 0.5,
+  "macro_f1": 0.4479712945073144,
+  "mcc": 0.0,
+  "accuracy": 0.8115,
+  "confusion_matrix": [
+    [
+      1623,
+      0
+    ],
+    [
+      377,
+      0
+    ]
+  ],
+  "test_support": {
+    "no_dropout": 1623,
+    "dropout": 377
+  }
+}

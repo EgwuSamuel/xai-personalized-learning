@@ -1,0 +1,30 @@
+day 14: train 12092 (risk 0.457), test 16027 (risk 0.450)
+  LR    AUC=0.708 [0.700, 0.715] PR-AUC=0.663 recall=0.753
+  RF    AUC=0.715 [0.707, 0.722] PR-AUC=0.666 recall=0.788
+  XGB   AUC=0.716 [0.708, 0.723] PR-AUC=0.671 recall=0.781
+  LGBM  AUC=0.714 [0.706, 0.721] PR-AUC=0.671 recall=0.822
+day 28: train 11809 (risk 0.444), test 15729 (risk 0.440)
+  LR    AUC=0.738 [0.730, 0.747] PR-AUC=0.693 recall=0.718
+  RF    AUC=0.767 [0.759, 0.775] PR-AUC=0.744 recall=0.792
+  XGB   AUC=0.774 [0.766, 0.781] PR-AUC=0.751 recall=0.805
+  LGBM  AUC=0.772 [0.764, 0.779] PR-AUC=0.748 recall=0.826
+day 56: train 11430 (risk 0.425), test 15092 (risk 0.416)
+  LR    AUC=0.806 [0.799, 0.813] PR-AUC=0.778 recall=0.693
+  RF    AUC=0.805 [0.798, 0.812] PR-AUC=0.776 recall=0.752
+  XGB   AUC=0.810 [0.803, 0.817] PR-AUC=0.781 recall=0.765
+  LGBM  AUC=0.811 [0.804, 0.818] PR-AUC=0.781 recall=0.820
+day 84: train 11134 (risk 0.410), test 14590 (risk 0.396)
+  LR    AUC=0.836 [0.830, 0.843] PR-AUC=0.803 recall=0.764
+  RF    AUC=0.826 [0.819, 0.833] PR-AUC=0.793 recall=0.775
+  XGB   AUC=0.831 [0.825, 0.838] PR-AUC=0.797 recall=0.802
+  LGBM  AUC=0.832 [0.826, 0.839] PR-AUC=0.799 recall=0.785
+day 112: train 10777 (risk 0.390), test 14155 (risk 0.377)
+  LR    AUC=0.867 [0.861, 0.873] PR-AUC=0.832 recall=0.759
+  RF    AUC=0.864 [0.858, 0.870] PR-AUC=0.832 recall=0.763
+  XGB   AUC=0.866 [0.859, 0.871] PR-AUC=0.832 recall=0.790
+  LGBM  AUC=0.866 [0.860, 0.872] PR-AUC=0.833 recall=0.761
+day 140: train 10513 (risk 0.375), test 13777 (risk 0.360)
+  LR    AUC=0.894 [0.888, 0.900] PR-AUC=0.862 recall=0.777
+  RF    AUC=0.894 [0.888, 0.900] PR-AUC=0.867 recall=0.733
+  XGB   AUC=0.895 [0.889, 0.901] PR-AUC=0.867 recall=0.761
+  LGBM  AUC=0.895 [0.890, 0.901] PR-AUC=0.867 recall=0.736

@@ -1,0 +1,8 @@
+attribute,n_groups,demographic_parity_diff,equal_opportunity_diff,fpr_diff,auc_diff,dataset
+Age band,3,0.415,0.295,0.088,0.077,"UCI, end of sem. 1"
+Gender,2,0.202,0.034,0.074,0.021,"UCI, end of sem. 1"
+Scholarship,2,0.287,0.252,0.083,0.078,"UCI, end of sem. 1"
+Age band,3,0.138,0.09,0.108,0.035,"OULAD, day 56"
+Disability,2,0.116,0.045,0.089,0.004,"OULAD, day 56"
+Gender,2,0.014,0.045,0.086,0.076,"OULAD, day 56"
+IMD band,11,0.368,0.205,0.312,0.035,"OULAD, day 56"

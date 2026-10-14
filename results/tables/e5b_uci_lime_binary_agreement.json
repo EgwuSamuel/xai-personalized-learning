@@ -1,0 +1,12 @@
+{
+  "binary_as_categorical": {
+    "spearman_abs": 0.4610967741935484,
+    "top5_overlap": 0.48400000000000004,
+    "sign_agreement": 0.9813874788494078
+  },
+  "lime_default": {
+    "spearman_abs": 0.298037603357204,
+    "top5_overlap": 0.42200000000000004,
+    "sign_agreement": 0.850253807106599
+  }
+}

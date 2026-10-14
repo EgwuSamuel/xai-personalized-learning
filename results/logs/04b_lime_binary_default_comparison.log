@@ -1,0 +1,11 @@
+binary_as_categorical {'spearman_abs': 0.461, 'top5_overlap': 0.484, 'sign_agreement': 0.981}
+lime_default {'spearman_abs': 0.298, 'top5_overlap': 0.422, 'sign_agreement': 0.85}
+                                feature  mean_abs_shap  mean_abs_lime_binary_as_categorical  mean_abs_lime_lime_default
+18  Curricular units 1st sem (approved)         0.1856                               0.2981                      0.2111
+11              Tuition fees up to date         0.0603                               0.3744                      0.0000
+3                     Age at enrollment         0.0460                               0.0634                      0.0620
+16  Curricular units 1st sem (enrolled)         0.0437                               0.0615                      0.0215
+19     Curricular units 1st sem (grade)         0.0342                               0.0528                      0.0669
+23                               Course         0.0340                               0.0357                      0.0235
+13                   Scholarship holder         0.0264                               0.0795                      0.0458
+12                               Gender         0.0233                               0.0594                      0.0284

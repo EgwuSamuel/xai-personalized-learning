@@ -1,0 +1,214 @@
+{
+  "kaggle": {
+    "test_metrics": {
+      "roc_auc": 0.5026727852759176,
+      "pr_auc": 0.20116141013005467,
+      "brier": 0.2258584350347519,
+      "prevalence": 0.1955,
+      "f1_dropout": 0.32705980761187786,
+      "recall_dropout": 1.0,
+      "precision_dropout": 0.1955,
+      "balanced_accuracy": 0.5,
+      "macro_f1": 0.16352990380593893,
+      "mcc": 0.0,
+      "accuracy": 0.1955
+    },
+    "threshold": 0.0012392776552587748,
+    "best_params": {
+      "clf__colsample_bytree": "0.6872700594236812",
+      "clf__learning_rate": "0.2536999076681772",
+      "clf__max_depth": "4",
+      "clf__min_child_weight": "8",
+      "clf__subsample": "0.8394633936788146"
+    },
+    "shap_lime_agreement": {
+      "spearman_abs": 0.1173076923076923,
+      "top5_overlap": 0.43300000000000005,
+      "sign_agreement": 0.6869047619047619
+    },
+    "shap_lime_agreement_sd": {
+      "spearman_abs": 0.29028902642434756,
+      "top5_overlap": 0.1779588343793821,
+      "sign_agreement": 0.35470986498698953
+    },
+    "global_shap_stability": {
+      "mean_pairwise_spearman": 0.8774114774114775,
+      "sd_pairwise_spearman": 0.04653344423917812,
+      "mean_top5_overlap": 0.9244444444444443,
+      "n_models": 10
+    },
+    "lime_local_stability": {
+      "mean_pairwise_spearman": 0.42448717948717934,
+      "sd_pairwise_spearman": 0.1856428432872738,
+      "mean_top5_overlap": 0.5999999999999999,
+      "n_models": 5.0
+    },
+    "deletion_drop_by_k": {
+      "shap": [
+        0.11417021221481263,
+        0.15223496104590595,
+        0.1729281675349921,
+        0.17763867263682187,
+        0.18586524800397455
+      ],
+      "lime": [
+        0.026159431263804437,
+        0.03716802534647286,
+        0.04765241446904838,
+        0.050306777311488984,
+        0.055515212016180156
+      ],
+      "random": [
+        0.006524710729718208,
+        0.010808278666809201,
+        0.020805809702724217,
+        0.02166949170641601,
+        0.013653395613655448
+      ]
+    },
+    "n_flagged_explained": 200
+  },
+  "uci_sem1": {
+    "test_metrics": {
+      "roc_auc": 0.9162077289025334,
+      "pr_auc": 0.8781639897025628,
+      "brier": 0.1017361730337143,
+      "prevalence": 0.32090395480225986,
+      "f1_dropout": 0.7949640287769785,
+      "recall_dropout": 0.778169014084507,
+      "precision_dropout": 0.8125,
+      "balanced_accuracy": 0.8466552225164632,
+      "macro_f1": 0.8505297903357709,
+      "mcc": 0.7014705777429654,
+      "accuracy": 0.8711864406779661
+    },
+    "threshold": 0.5563490390777588,
+    "best_params": {
+      "clf__colsample_bytree": "0.9916154429033941",
+      "clf__learning_rate": "0.048917628051312216",
+      "clf__max_depth": "6",
+      "clf__min_child_weight": "3",
+      "clf__subsample": "0.8721230154351118"
+    },
+    "shap_lime_agreement": {
+      "spearman_abs": 0.4610967741935484,
+      "top5_overlap": 0.48400000000000004,
+      "sign_agreement": 0.9813874788494078
+    },
+    "shap_lime_agreement_sd": {
+      "spearman_abs": 0.12302695220382066,
+      "top5_overlap": 0.1852446433488624,
+      "sign_agreement": 0.08208516539283019
+    },
+    "global_shap_stability": {
+      "mean_pairwise_spearman": 0.9333352905333019,
+      "sd_pairwise_spearman": 0.02131810972557635,
+      "mean_top5_overlap": 0.9199999999999998,
+      "n_models": 10
+    },
+    "lime_local_stability": {
+      "mean_pairwise_spearman": 0.6673503893214683,
+      "sd_pairwise_spearman": 0.07737558059647766,
+      "mean_top5_overlap": 0.7413333333333333,
+      "n_models": 5.0
+    },
+    "deletion_drop_by_k": {
+      "shap": [
+        0.3107450693845749,
+        0.5336709643403689,
+        0.6398553962508837,
+        0.7190397595365842,
+        0.7561796302596728
+      ],
+      "lime": [
+        0.2843960036834081,
+        0.4802798782785734,
+        0.573701127866904,
+        0.6475587313373884,
+        0.6830709879597028
+      ],
+      "random": [
+        0.0028237799803415933,
+        0.023818623026212057,
+        0.024821696678797404,
+        0.03215770175059637,
+        0.09917917301257452
+      ]
+    },
+    "n_flagged_explained": 60,
+    "counterfactuals": {
+      "students": 20,
+      "with_valid_cf": 14,
+      "mean_features_changed": 2.8
+    }
+  },
+  "oulad_d56": {
+    "test_metrics": {
+      "roc_auc": 0.8102348461566058,
+      "pr_auc": 0.7810157084613545,
+      "brier": 0.1766892820596695,
+      "prevalence": 0.4159157169361251,
+      "f1_dropout": 0.6951422572938536,
+      "recall_dropout": 0.7648558228453083,
+      "precision_dropout": 0.6370753715498938,
+      "balanced_accuracy": 0.7272946159036524,
+      "macro_f1": 0.7189595594086395,
+      "mcc": 0.448115480464552,
+      "accuracy": 0.7209780015902465
+    },
+    "threshold": 0.4317581355571747,
+    "best_params": {
+      "clf__colsample_bytree": "0.5079831261101071",
+      "clf__learning_rate": "0.021930986997479973",
+      "clf__max_depth": "5",
+      "clf__min_child_weight": "7",
+      "clf__subsample": "0.8439986631130484"
+    },
+    "shap_lime_agreement": {
+      "spearman_abs": 0.6597181171319102,
+      "top5_overlap": 0.725,
+      "sign_agreement": 0.9990000000000001
+    },
+    "shap_lime_agreement_sd": {
+      "spearman_abs": 0.09839709711696158,
+      "top5_overlap": 0.13663214010086616,
+      "sign_agreement": 0.014142135623730947
+    },
+    "global_shap_stability": {
+      "mean_pairwise_spearman": 0.926655719759168,
+      "sd_pairwise_spearman": 0.025619817636171636,
+      "mean_top5_overlap": 0.8177777777777776,
+      "n_models": 10
+    },
+    "lime_local_stability": {
+      "mean_pairwise_spearman": 0.7612132822477649,
+      "sd_pairwise_spearman": 0.05874501889092793,
+      "mean_top5_overlap": 0.862,
+      "n_models": 5.0
+    },
+    "deletion_drop_by_k": {
+      "shap": [
+        0.11955933192724823,
+        0.21505118826384184,
+        0.27916473342526343,
+        0.3266691185774342,
+        0.36291460084017885
+      ],
+      "lime": [
+        0.09056701070518904,
+        0.18133805419809074,
+        0.254264860704381,
+        0.3084077860719414,
+        0.3482230012455294
+      ],
+      "random": [
+        0.0003098983277556717,
+        0.007943190233681792,
+        0.01698286623083135,
+        0.0241001001609269,
+        0.03448440855549228
+      ]
+    },
+    "n_flagged_explained": 93
+  }
+}

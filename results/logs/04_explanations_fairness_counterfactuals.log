@@ -1,0 +1,37 @@
+=== kaggle
+  test {'roc_auc': 0.503, 'pr_auc': 0.201, 'brier': 0.226, 'prevalence': 0.196, 'f1_dropout': 0.327, 'recall_dropout': 1.0, 'precision_dropout': 0.196, 'balanced_accuracy': 0.5, 'macro_f1': 0.164, 'mcc': 0.0, 'accuracy': 0.196}
+  agreement {'spearman_abs': 0.117, 'top5_overlap': 0.433, 'sign_agreement': 0.687}
+  global stability {'mean_pairwise_spearman': 0.8774114774114775, 'sd_pairwise_spearman': 0.04653344423917812, 'mean_top5_overlap': 0.9244444444444443, 'n_models': 10}
+  LIME local stability {'mean_pairwise_spearman': 0.424, 'sd_pairwise_spearman': 0.186, 'mean_top5_overlap': 0.6, 'n_models': 5.0}
+  deletion {'shap': [0.114, 0.152, 0.173, 0.178, 0.186], 'lime': [0.026, 0.037, 0.048, 0.05, 0.056], 'random': [0.007, 0.011, 0.021, 0.022, 0.014]}
+=== uci_sem1
+  test {'roc_auc': 0.916, 'pr_auc': 0.878, 'brier': 0.102, 'prevalence': 0.321, 'f1_dropout': 0.795, 'recall_dropout': 0.778, 'precision_dropout': 0.812, 'balanced_accuracy': 0.847, 'macro_f1': 0.851, 'mcc': 0.701, 'accuracy': 0.871}
+ 83%|=================   | 166/200 [00:11<00:02]        94%|=================== | 188/200 [00:12<00:00]         agreement {'spearman_abs': 0.461, 'top5_overlap': 0.484, 'sign_agreement': 0.981}
+  global stability {'mean_pairwise_spearman': 0.9333352905333019, 'sd_pairwise_spearman': 0.02131810972557635, 'mean_top5_overlap': 0.9199999999999998, 'n_models': 10}
+  LIME local stability {'mean_pairwise_spearman': 0.667, 'sd_pairwise_spearman': 0.077, 'mean_top5_overlap': 0.741, 'n_models': 5.0}
+  deletion {'shap': [0.311, 0.534, 0.64, 0.719, 0.756], 'lime': [0.284, 0.48, 0.574, 0.648, 0.683], 'random': [0.003, 0.024, 0.025, 0.032, 0.099]}
+     attribute  n_groups  demographic_parity_diff  equal_opportunity_diff  fpr_diff  auc_diff
+0     Age band         3                    0.415                   0.295     0.088     0.077
+1       Gender         2                    0.202                   0.034     0.074     0.021
+2  Scholarship         2                    0.287                   0.252     0.083     0.078
+   student  p_dropout  cf  n_changed                                                                                                                                             changes
+0        1   0.999025   0          3  Curricular units 1st sem (approved): 0 -> 6; Curricular units 1st sem (evaluations): 0 -> 14; Tuition fees up to date: 0 -> 1  (P(dropout) = 0.41)
+1        2   0.998802   0          3       Curricular units 1st sem (approved): 0 -> 7; Curricular units 1st sem (evaluations): 0 -> 10; Scholarship holder: 0 -> 1  (P(dropout) = 0.45)
+2        3   0.998472   0          3   Curricular units 1st sem (approved): 0 -> 7; Curricular units 1st sem (evaluations): 0 -> 9; Tuition fees up to date: 0 -> 1  (P(dropout) = 0.19)
+3        6   0.997838   0          3                       Curricular units 1st sem (approved): 0 -> 4; Tuition fees up to date: 0 -> 1; Scholarship holder: 0 -> 1  (P(dropout) = 0.55)
+4        6   0.997838   1          3  Curricular units 1st sem (approved): 0 -> 5; Curricular units 1st sem (evaluations): 7 -> 15; Tuition fees up to date: 0 -> 1  (P(dropout) = 0.55)
+5        6   0.997838   2          3      Curricular units 1st sem (approved): 0 -> 5; Curricular units 1st sem (grade): 0 -> 12.4; Tuition fees up to date: 0 -> 1  (P(dropout) = 0.55)
+6        7   0.997336   0          2                                                   Curricular units 1st sem (approved): 4 -> 7; Tuition fees up to date: 0 -> 1  (P(dropout) = 0.32)
+7        7   0.997336   1          3   Curricular units 1st sem (approved): 4 -> 5; Curricular units 1st sem (grade): 11.5 -> 12.6; Tuition fees up to date: 0 -> 1  (P(dropout) = 0.52)
+8        7   0.997336   2          3                    Curricular units 1st sem (grade): 11.5 -> 13.0; Tuition fees up to date: 0 -> 1; Scholarship holder: 0 -> 1  (P(dropout) = 0.48)
+=== oulad_d56
+  test {'roc_auc': 0.81, 'pr_auc': 0.781, 'brier': 0.177, 'prevalence': 0.416, 'f1_dropout': 0.695, 'recall_dropout': 0.765, 'precision_dropout': 0.637, 'balanced_accuracy': 0.727, 'macro_f1': 0.719, 'mcc': 0.448, 'accuracy': 0.721}
+  agreement {'spearman_abs': 0.66, 'top5_overlap': 0.725, 'sign_agreement': 0.999}
+  global stability {'mean_pairwise_spearman': 0.926655719759168, 'sd_pairwise_spearman': 0.025619817636171636, 'mean_top5_overlap': 0.8177777777777776, 'n_models': 10}
+  LIME local stability {'mean_pairwise_spearman': 0.761, 'sd_pairwise_spearman': 0.059, 'mean_top5_overlap': 0.862, 'n_models': 5.0}
+  deletion {'shap': [0.12, 0.215, 0.279, 0.327, 0.363], 'lime': [0.091, 0.181, 0.254, 0.308, 0.348], 'random': [0.0, 0.008, 0.017, 0.024, 0.034]}
+    attribute  n_groups  demographic_parity_diff  equal_opportunity_diff  fpr_diff  auc_diff
+0    Age band         3                    0.138                   0.090     0.108     0.035
+1  Disability         2                    0.116                   0.045     0.089     0.004
+2      Gender         2                    0.014                   0.045     0.086     0.076
+3    IMD band        11                    0.368                   0.205     0.312     0.035
