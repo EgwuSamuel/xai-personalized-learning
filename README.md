@@ -1,8 +1,7 @@
 # Explainable dropout prediction for personalised intervention: reproducible code
 
 This repository holds the code for the experiments in the manuscript
-*"Check the signal before you explain: a reproducible evaluation of SHAP, LIME and
-counterfactual explanations for student dropout prediction"*. It rebuilds, and then
+*"Explainable AI for student dropout prediction: When can the explanations be trusted?"*. It rebuilds, and then
 extends, the experiment of the MSc dissertation *Development of Explainable Artificial
 Intelligence (XAI) Models for the Enhancement of Personalized Learning in Academic Environment*
 (L. E. Longwul, Veritas University Abuja, 2025). That dissertation's original code was not available.
