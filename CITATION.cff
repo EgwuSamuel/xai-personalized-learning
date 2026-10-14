@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below."
+title: "Explainable dropout prediction for personalised intervention: reproducible code"
+version: 1.0.0
+date-released: 2026-10-14
+license: MIT
+authors:
+  - family-names: Longwul
+    given-names: Longkang Emmanuel
+    affiliation: "Department of Computer Science, Veritas University, Abuja"
