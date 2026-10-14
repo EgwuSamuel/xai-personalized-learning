@@ -43,7 +43,7 @@ def arrow(x0, y0, x1, y1):
 box(0.1, 4.3, 2.6, 1.3, "Kaggle v1 (n = 10,000)\nno documentation\n→ negative control", "#F4D6D6")
 box(0.1, 2.4, 2.6, 1.3, "UCI #697 (n = 4,424)\nenrolment / sem. 1 / sem. 2", "#D6E4F4")
 box(0.1, 0.5, 2.6, 1.3, "OULAD (32,593 registrations)\ncutoffs day 14 … 140", "#D6F0DC")
-box(3.4, 4.3, 2.8, 1.3, "E1 replication\nE2 signal audit\nE2b resampling order", "#FFFFFF")
+box(3.4, 4.3, 2.8, 1.3, "E1 baseline\nE2 signal audit\nE2b resampling order", "#FFFFFF")
 box(3.4, 2.4, 2.8, 1.3, "E3 nested 5×2 CV\n7 models, imbalance ablation\nFriedman / Nemenyi", "#FFFFFF")
 box(3.4, 0.5, 2.8, 1.3, "E4 temporal validation\ntrain 2013 → test 2014\nbootstrap CIs", "#FFFFFF")
 box(6.9, 2.6, 3.0, 2.9, "E5 explanation quality\nSHAP vs LIME agreement\nstability, deletion test\n\nCounterfactuals (UCI)\n\nE6 fairness audit", "#FFF4D6")
