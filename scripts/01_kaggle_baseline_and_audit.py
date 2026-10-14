@@ -1,6 +1,6 @@
-"""E1 + E2: replicate the dissertation's experiment on the Kaggle data, then audit its signal.
+"""E1 + E2: a baseline model on the Kaggle data, then an audit of its signal.
 
-E1 reproduces the original pipeline (one-hot encoding, 80/20 split,
+E1 runs a typical pipeline for this dataset (one-hot encoding, 80/20 split,
 RandomForest with 100 trees) with a fixed seed.
 E2 asks whether *any* model can beat chance on this data: a label-permutation
 test, uniformity and univariate association tests, and the full tuned model
@@ -28,7 +28,7 @@ from xaiedu.signal_tests import label_permutation_test, target_association, unif
 ds = load_kaggle()
 print(f"Kaggle v1: {ds.X.shape}, dropout prevalence = {ds.y.mean():.4f}")
 
-# ---------------- E1: faithful replication of the original pipeline ----------------
+# ---------------- E1: baseline pipeline ----------------
 Xtr, Xte, ytr, yte = train_test_split(ds.X, ds.y, test_size=0.2, random_state=SEED)
 rf = Pipeline([("pre", make_preprocessor(ds.categorical, ds.numeric, scale=False)),
                ("clf", RandomForestClassifier(n_estimators=100, random_state=SEED, n_jobs=-1))])
@@ -39,9 +39,9 @@ e1["confusion_matrix"] = confusion_matrix(yte, pred).tolist()
 e1["test_support"] = {"no_dropout": int((yte == 0).sum()), "dropout": int((yte == 1).sum())}
 print(classification_report(yte, pred, digits=3, zero_division=0))
 print("E1", {k: v for k, v in e1.items() if k != "confusion_matrix"}, e1["confusion_matrix"])
-(TABLES / "e1_kaggle_replication.json").write_text(json.dumps(e1, indent=2))
+(TABLES / "e1_kaggle_baseline.json").write_text(json.dumps(e1, indent=2))
 
-# Split-to-split variability of the same pipeline (explains differing supports in the thesis)
+# Variability of the same pipeline across random splits
 var = []
 for s in range(20):
     a, b, c, d = train_test_split(ds.X, ds.y, test_size=0.2, random_state=s)

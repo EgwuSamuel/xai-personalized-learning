@@ -57,7 +57,7 @@ plt.close(fig)
 # ---------------------------------------------------------------- Kaggle audit
 perm = json.loads((TABLES / "e2_kaggle_permutation_test.json").read_text())
 null = np.load(TABLES / "e2_kaggle_permutation_scores.npy")
-e1 = json.loads((TABLES / "e1_kaggle_replication.json").read_text())
+e1 = json.loads((TABLES / "e1_kaggle_baseline.json").read_text())
 leak = pd.read_csv(TABLES / "e2b_kaggle_leakage_runs.csv")
 kcv = pd.read_csv(TABLES / "e2_kaggle_cv_summary.csv")
 

@@ -79,8 +79,8 @@ def download_all() -> None:
 
 # --------------------------------------------------------------------------
 # Kaggle: "Personalized Learning and Adaptive Education Dataset", version 1
-# (the file analysed in the original dissertation; later versions of the same
-# Kaggle page contain an unrelated dataset).
+# (the original release; later versions of the same Kaggle page contain an
+# unrelated dataset).
 # --------------------------------------------------------------------------
 KAGGLE_CATEGORICAL = ["Gender", "Education_Level", "Course_Name",
                       "Engagement_Level", "Learning_Style"]
