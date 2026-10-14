@@ -1,7 +1,7 @@
 # Explainable dropout prediction for personalised intervention: reproducible code
 
 This repository holds the code for the experiments in the manuscript
-*"Check the signal before you explain: a reproducible multi-dataset evaluation of SHAP, LIME and
+*"Check the signal before you explain: a reproducible evaluation of SHAP, LIME and
 counterfactual explanations for student dropout prediction"*. It rebuilds, and then
 extends, the experiment of the MSc dissertation *Development of Explainable Artificial
 Intelligence (XAI) Models for the Enhancement of Personalized Learning in Academic Environment*
@@ -19,6 +19,18 @@ Every number and figure in the paper is produced by the scripts below. Nothing i
 | `03_oulad_early_warning.py` | **E4** gives early warning of withdrawal or failure in OULAD, using only data up to day 14 … 140. Validation is temporal: train on 2013, test on 2014, with bootstrap CIs. |
 | `04_explanations_fairness_counterfactuals.py` | **E5** evaluates the explanations themselves: TreeSHAP and LIME agreement, stability across bootstrap refits and LIME seeds, and a deletion-based faithfulness test. It also generates actionable counterfactuals. **E6** is a group-fairness audit. |
 | `05_figures_and_tables.py` | Builds all paper figures (`results/figures`) and formatted tables (`results/tables/paper_*.csv`). |
+
+## Key results (from `results/tables`)
+
+| Finding | Value |
+|---|---|
+| Thesis pipeline re-run (seed 42) | Classification report reproduced exactly; dropout recall 0, test ROC-AUC 0.531 |
+| Kaggle label-permutation test (5-fold CV ROC-AUC) | 0.498 vs null 0.500 ± 0.008, *p* = 0.595 |
+| Kaggle, oversampling inside training split vs before splitting | ROC-AUC 0.50 vs 0.94 (SMOTE) / 0.985 (random oversampling) |
+| UCI dropout, best ROC-AUC at enrolment / end of sem. 1 / end of sem. 2 | 0.827 / 0.907 / 0.926 (5×2 nested CV) |
+| OULAD at-risk, test ROC-AUC (train 2013 → test 2014), day 28 / day 140 | 0.774 / 0.895 (XGBoost) |
+| SHAP global-ranking stability, Kaggle (no signal) vs UCI | Spearman 0.88 vs 0.93 |
+| SHAP importance vs feature cardinality, Kaggle vs UCI vs OULAD | Spearman 0.95 vs 0.30 vs −0.11 |
 
 ## Data
 

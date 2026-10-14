@@ -14,7 +14,7 @@ import pandas as pd
 from xaiedu.config import FIGURES, TABLES
 
 plt.rcParams.update({"font.size": 9, "axes.spines.top": False, "axes.spines.right": False,
-                     "savefig.dpi": 300, "savefig.bbox": "tight"})
+                     "savefig.dpi": 600, "savefig.bbox": "tight"})
 PALETTE = ["#4C72B0", "#DD8452", "#55A868", "#C44E52", "#8172B3", "#937860", "#DA8BC3"]
 NICE = {"kaggle": "Kaggle (v1)", "uci_sem1": "UCI, end of sem. 1", "oulad_d56": "OULAD, day 56",
         "uci_enrolment": "At enrolment", "uci_sem1_s": "End of sem. 1", "uci_sem2": "End of sem. 2"}
@@ -64,10 +64,11 @@ kcv = pd.read_csv(TABLES / "e2_kaggle_cv_summary.csv")
 fig, ax = plt.subplots(1, 2, figsize=(7.2, 2.6))
 ax[0].hist(null, bins=25, color="#BBBBBB", edgecolor="white", label="permuted labels")
 ax[0].axvline(perm["observed_auc"], color="#C44E52", lw=2, label=f"observed ({perm['observed_auc']:.3f})")
-ax[0].set(xlabel="5-fold CV ROC-AUC", ylabel="count", title=f"(a) Label-permutation test, p = {perm['p_value']:.2f}")
+ax[0].set(xlabel="5-fold CV ROC-AUC", ylabel="count", title=f"(a) Label permutation test, p = {perm['p_value']:.3f}")
 ax[0].legend(frameon=False, fontsize=7)
 g = leak.groupby(["sampler", "protocol"])["roc_auc"].agg(["mean", "std"]).reset_index()
-labels = [f"{s}\n{'train only' if 'train' in p else 'before split'}" for s, p in zip(g["sampler"], g["protocol"])]
+labels = [("Random\noversampling" if s == "RandomOverSampler" else "SMOTE")
+          + ("\ntrain only" if "train" in p else "\nbefore split") for s, p in zip(g["sampler"], g["protocol"])]
 colors = ["#C44E52" if "leaky" in p else "#4C72B0" for p in g["protocol"]]
 ax[1].bar(range(len(g)), g["mean"], yerr=g["std"], color=colors, capsize=3)
 ax[1].axhline(0.5, ls="--", color="grey", lw=1)
@@ -161,14 +162,14 @@ for k in keys:
 xt = pd.DataFrame(xrows)
 xt.round(3).to_csv(TABLES / "paper_table_xai_quality.csv", index=False)
 
-fig, ax = plt.subplots(1, 2, figsize=(7.2, 2.8))
+fig, ax = plt.subplots(1, 2, figsize=(7.2, 3.6))
 cols = ["SHAP-LIME top-5 overlap", "Global SHAP top-5 stability", "LIME local top-5 stability"]
 w = 0.25
 for j, c in enumerate(cols):
     ax[0].bar(np.arange(len(xt)) + (j - 1) * w, xt[c], w, color=PALETTE[j], label=c)
-ax[0].set_xticks(range(len(xt)), xt["Dataset"], fontsize=7)
+ax[0].set_xticks(range(len(xt)), [d.replace(", ", "\n") for d in xt["Dataset"]], fontsize=7)
 ax[0].set(ylim=(0, 1.05), ylabel="overlap (0-1)", title="(a) Agreement and stability of top-5 features")
-ax[0].legend(frameon=False, fontsize=6.5, loc="upper left")
+ax[0].legend(frameon=False, fontsize=6.5, loc="upper center", bbox_to_anchor=(0.5, -0.26), ncol=1)
 for j, k in enumerate(keys):
     d = summ[k]["deletion_drop_by_k"]
     if not d:
@@ -178,10 +179,49 @@ for j, k in enumerate(keys):
                    label=f"{NICE[k]} - {meth.upper() if meth != 'random' else 'random'}")
 ax[1].set(xlabel="k features replaced by baseline", ylabel="mean drop in P(at risk)",
           title="(b) Deletion test on flagged students")
-ax[1].legend(frameon=False, fontsize=5.5)
+ax[1].legend(frameon=False, fontsize=5.5, loc="upper center", bbox_to_anchor=(0.5, -0.2), ncol=3)
 fig.tight_layout()
 fig.savefig(FIGURES / "fig6_explanation_quality.png")
 plt.close(fig)
+
+# SHAP beeswarm plots with readable feature names, rebuilt from the saved SHAP values of script 04
+import shap
+from sklearn.model_selection import train_test_split
+from xaiedu.config import SEED
+from xaiedu.data import load_kaggle, load_oulad, load_uci, sample_ids
+
+READABLE = {
+    "Curricular units 1st sem (approved)": "Sem. 1 units approved", "Curricular units 1st sem (enrolled)": "Sem. 1 units enrolled",
+    "Curricular units 1st sem (evaluations)": "Sem. 1 evaluations", "Curricular units 1st sem (grade)": "Sem. 1 grade",
+    "Curricular units 1st sem (credited)": "Sem. 1 units credited",
+    "Curricular units 1st sem (without evaluations)": "Sem. 1 units without evaluation",
+    "Tuition fees up to date": "Tuition fees up to date", "Age at enrollment": "Age at enrolment",
+    "mean_score": "Mean assessment score", "n_missed": "Assessments missed", "code_module": "Module",
+    "clicks_last_14d": "Clicks, last 14 days", "highest_education": "Highest education",
+    "days_since_last_active": "Days since last activity", "active_days": "Active days", "n_late": "Late submissions",
+    "n_submitted": "Assessments submitted", "clicks_quiz": "Quiz clicks", "studied_credits": "Studied credits",
+    "clicks_total": "Total clicks", "date_registration": "Registration day", "imd_band": "IMD band",
+    "age_band": "Age band", "num_of_prev_attempts": "Previous attempts",
+}
+TITLES = {"uci_sem1": "UCI, end of semester 1", "oulad_d56": "OULAD, day 56", "kaggle": "Kaggle (v1)"}
+for key, load in (("uci_sem1", lambda: load_uci("sem1")), ("oulad_d56", lambda: load_oulad(56)), ("kaggle", load_kaggle)):
+    ds = load()
+    if ds.groups is not None:
+        Xte = ds.X[~ds.groups.str.startswith("2013").to_numpy()]
+    else:
+        _, Xte, _, _ = train_test_split(ds.X, ds.y, test_size=0.2, stratify=ds.y, random_state=SEED)
+    ex = Xte.iloc[sample_ids(len(Xte), 200, SEED + 1)].copy()  # same students as script 04
+    S = np.load(TABLES / f"e5_{key}_shap.npy")
+    for c in ds.categorical:
+        ex[c] = pd.Categorical(ex[c]).codes
+    names = [READABLE.get(f, f.replace("_", " ")) for f in ex.columns]
+    expl = shap.Explanation(values=S, data=ex.to_numpy(dtype=float), feature_names=names)
+    plt.figure()
+    shap.plots.beeswarm(expl, max_display=12, show=False)
+    plt.title(f"SHAP values for P(at risk), {TITLES[key]}", fontsize=10)
+    plt.gcf().set_size_inches(6.5, 4.6)
+    plt.savefig(FIGURES / f"fig_shap_beeswarm_{key}.png", dpi=600, bbox_inches="tight")
+    plt.close("all")
 
 gi = pd.read_csv(TABLES / "e5_global_importance.csv")
 gi.groupby("dataset").head(10).round(4).to_csv(TABLES / "paper_table_top10_features.csv", index=False)
@@ -220,7 +260,7 @@ if frows:
         a.set_yticks(y, lab, fontsize=6)
         a.invert_yaxis()
         a.set(xlim=(0, 1), title=dname)
-    axes[0].legend(frameon=False, fontsize=7)
+    axes[0].legend(frameon=False, fontsize=7, loc="upper center", bbox_to_anchor=(0.5, -0.1), ncol=2)
     fig.tight_layout()
     fig.savefig(FIGURES / "fig7_fairness.png")
     plt.close(fig)

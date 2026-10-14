@@ -110,7 +110,7 @@ for key, ds in datasets.items():
     shap.plots.beeswarm(expl, max_display=12, show=False)
     plt.title(f"SHAP values for P(dropout) - {key}")
     plt.tight_layout()
-    plt.savefig(FIGURES / f"fig_shap_beeswarm_{key}.png", dpi=300, bbox_inches="tight")
+    plt.savefig(FIGURES / f"fig_shap_beeswarm_{key}.png", dpi=600, bbox_inches="tight")
     plt.close("all")
 
     # E6: fairness audit on the test set.
