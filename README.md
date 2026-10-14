@@ -63,7 +63,8 @@ and the counterfactual constraints.
   their source feature (SHAP is additive). LIME runs in the original feature space.
 * **Counterfactuals** may change only actionable features (e.g. approved or evaluated units,
   tuition status, scholarship), within the observed range and in the plausible direction. They
-  must also satisfy domain constraints (approved ≤ enrolled and ≤ evaluated units).
+  must also satisfy domain constraints (approved ≤ enrolled and ≤ evaluated units; a non-zero
+  semester grade requires at least one approved unit).
 
 ## Layout
 

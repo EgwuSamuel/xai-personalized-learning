@@ -57,6 +57,18 @@ def test_shap_aggregation_and_lime(toy):
     assert ag["top2_overlap"].between(0, 1).all()
 
 
+def test_lime_weights_binary_features():
+    """A predictive, mostly-1 binary column must not get zero LIME weight."""
+    rng = np.random.default_rng(1)
+    n = 600
+    X = pd.DataFrame({"fees_ok": (rng.random(n) < 0.85).astype(int), "z": rng.normal(size=n),
+                      "c": rng.choice(["p", "q"], n)})
+    y = pd.Series(((X["fees_ok"] == 0) | (rng.random(n) < 0.15)).astype(int))
+    model, _, _ = fit_model("LR", ["c"], ["fees_ok", "z"], X, y, "weight", tune=False)
+    L = LimeWrapper(model, X, ["c"], num_samples=500).explain(X.iloc[:5])
+    assert np.abs(L[:, 0]).mean() > 0.05
+
+
 def test_counterfactuals_respect_constraints(toy):
     model, _, thr = fit_model("LR", toy.categorical, toy.numeric, toy.X, toy.y, "weight+threshold")
     p = model.predict_proba(toy.X)[:, 1]

@@ -10,3 +10,4 @@ pip_*.log
 .ipynb_checkpoints/
 results/tables/*.npy
 results/cache/
+results/tables/prelim_*

@@ -27,7 +27,7 @@ from xaiedu.explain import (LimeWrapper, agreement, base_pipeline, baseline_row,
                             deletion_curve, ranking_stability, shap_values)
 from xaiedu.fairness import gaps, group_metrics
 
-N_EXPLAIN, N_BACKGROUND, N_BOOT_MODELS, N_LIME_STAB = 200, 200, 10, 30
+N_EXPLAIN, N_BACKGROUND, N_BOOT_MODELS, N_LIME_STAB = 200, 100, 10, 30
 
 
 def split(ds):
@@ -137,8 +137,10 @@ for key, ds in datasets.items():
                "Tuition fees up to date": [1], "Debtor": [0], "Scholarship holder": [1]}
 
         def feasible(c):
-            return ((c["Curricular units 1st sem (approved)"] <= c["Curricular units 1st sem (enrolled)"])
-                    & (c["Curricular units 1st sem (approved)"] <= c["Curricular units 1st sem (evaluations)"]))
+            approved = c["Curricular units 1st sem (approved)"]
+            return ((approved <= c["Curricular units 1st sem (enrolled)"])
+                    & (approved <= c["Curricular units 1st sem (evaluations)"])
+                    & ((c["Curricular units 1st sem (grade)"] == 0) | (approved > 0)))  # a grade needs an approved unit
 
         risky = Xte.assign(p=proba).sort_values("p", ascending=False).head(20)
         cf_rows, n_valid = [], 0

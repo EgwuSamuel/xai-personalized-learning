@@ -62,26 +62,35 @@ def shap_values(model, X_background: pd.DataFrame, X_explain: pd.DataFrame) -> n
 
 
 class LimeWrapper:
-    """LIME on the original features; categoricals are integer-coded for LIME only."""
+    """LIME on the original features; categoricals are integer-coded for LIME only.
 
-    def __init__(self, model, X_train: pd.DataFrame, categorical, seed=42, num_samples=2000):
+    Binary numeric features are also passed to LIME as categorical: LIME's default
+    quartile discretiser collapses a mostly-constant 0/1 column into one bin, which
+    silently gives it zero weight.
+    """
+
+    def __init__(self, model, X_train: pd.DataFrame, categorical, seed=42, num_samples=2000,
+                 binary_as_categorical=True):
         self.model, self.features = model, list(X_train.columns)
+        binary = [c for c in self.features if c not in categorical and X_train[c].nunique() <= 2
+                  and binary_as_categorical]
+        categorical = list(categorical) + binary
         self.cat_idx = [self.features.index(c) for c in categorical]
-        self.levels = {c: sorted(X_train[c].astype(str).unique()) for c in categorical}
+        self.levels = {c: sorted(X_train[c].unique()) for c in categorical}
         self.num_samples, self.seed = num_samples, seed
         self.train = self._encode(X_train)
-        self.cat_names = {self.features.index(c): v for c, v in self.levels.items()}
+        self.cat_names = {self.features.index(c): [str(v) for v in lv] for c, lv in self.levels.items()}
 
     def _encode(self, X):
         Z = X.copy()
         for c, lv in self.levels.items():
-            Z[c] = pd.Categorical(Z[c].astype(str), categories=lv).codes
+            Z[c] = pd.Categorical(Z[c], categories=lv).codes
         return Z.to_numpy(dtype=float)
 
     def _decode(self, Z):
         df = pd.DataFrame(Z, columns=self.features)
         for c, lv in self.levels.items():
-            df[c] = np.asarray(lv, dtype=object)[np.clip(np.round(df[c]).astype(int), 0, len(lv) - 1)]
+            df[c] = np.asarray(lv)[np.clip(np.round(df[c]).astype(int), 0, len(lv) - 1)]
         return df
 
     def predict_fn(self, Z):

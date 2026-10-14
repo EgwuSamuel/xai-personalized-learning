@@ -24,6 +24,36 @@ def pm(m, s, d=3):
     return f"{m:.{d}f} ± {s:.{d}f}"
 
 
+# ------------------------------------------------------------- study design
+from matplotlib.patches import FancyBboxPatch
+
+fig, ax = plt.subplots(figsize=(7.2, 3.3))
+ax.set_xlim(0, 10); ax.set_ylim(0, 6); ax.axis("off")
+
+
+def box(x, y, w, h, text, fc):
+    ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.05", fc=fc, ec="#555555", lw=0.8))
+    ax.text(x + w / 2, y + h / 2, text, ha="center", va="center", fontsize=7)
+
+
+def arrow(x0, y0, x1, y1):
+    ax.annotate("", xy=(x1, y1), xytext=(x0, y0), arrowprops=dict(arrowstyle="->", color="#555555", lw=0.8))
+
+
+box(0.1, 4.3, 2.6, 1.3, "Kaggle v1 (n = 10,000)\nno documentation\n→ negative control", "#F4D6D6")
+box(0.1, 2.4, 2.6, 1.3, "UCI #697 (n = 4,424)\nenrolment / sem. 1 / sem. 2", "#D6E4F4")
+box(0.1, 0.5, 2.6, 1.3, "OULAD (32,593 registrations)\ncutoffs day 14 … 140", "#D6F0DC")
+box(3.4, 4.3, 2.8, 1.3, "E1 replication\nE2 signal audit\nE2b resampling order", "#FFFFFF")
+box(3.4, 2.4, 2.8, 1.3, "E3 nested 5×2 CV\n7 models, imbalance ablation\nFriedman / Nemenyi", "#FFFFFF")
+box(3.4, 0.5, 2.8, 1.3, "E4 temporal validation\ntrain 2013 → test 2014\nbootstrap CIs", "#FFFFFF")
+box(6.9, 2.6, 3.0, 2.9, "E5 explanation quality\nSHAP vs LIME agreement\nstability, deletion test\n\nCounterfactuals (UCI)\n\nE6 fairness audit", "#FFF4D6")
+for y in (4.95, 3.05, 1.15):
+    arrow(2.75, y, 3.35, y)
+for y in (4.95, 3.05, 1.15):
+    arrow(6.25, y, 6.85, min(max(y, 2.8), 5.3))
+fig.savefig(FIGURES / "fig1_study_design.png")
+plt.close(fig)
+
 # ---------------------------------------------------------------- Kaggle audit
 perm = json.loads((TABLES / "e2_kaggle_permutation_test.json").read_text())
 null = np.load(TABLES / "e2_kaggle_permutation_scores.npy")
@@ -155,6 +185,22 @@ plt.close(fig)
 
 gi = pd.read_csv(TABLES / "e5_global_importance.csv")
 gi.groupby("dataset").head(10).round(4).to_csv(TABLES / "paper_table_top10_features.csv", index=False)
+
+# Does global importance merely track how many distinct values a feature has?
+# (Tree models split more often on high-cardinality features even when they carry no signal.)
+from scipy.stats import spearmanr
+from xaiedu.data import load_kaggle, load_oulad, load_uci
+loaders = {"kaggle": load_kaggle, "uci_sem1": lambda: load_uci("sem1"), "oulad_d56": lambda: load_oulad(56)}
+card_rows = []
+for k, load in loaders.items():
+    X = load().X
+    d = gi[gi.dataset == k].copy()
+    d["n_unique"] = [X[f].nunique() for f in d.feature]
+    rho, p = spearmanr(d["mean_abs_shap"], d["n_unique"])
+    card_rows.append({"dataset": NICE[k], "spearman_importance_vs_cardinality": rho, "p_value": p,
+                      "n_features": len(d)})
+pd.DataFrame(card_rows).round(4).to_csv(TABLES / "paper_table_importance_cardinality.csv", index=False)
+print(pd.DataFrame(card_rows).round(3).to_string())
 
 # --------------------------------------------------------------------- fairness
 frows = []
