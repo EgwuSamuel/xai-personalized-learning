@@ -88,3 +88,32 @@ def test_fairness_gaps():
     g = pd.Series(["m", "m", "m", "m", "f", "f", "f", "f"] * 10, name="sex")
     gm = group_metrics(y, pred.astype(float), pred, g, min_n=5)
     assert gaps(gm)["equal_opportunity_diff"].iloc[0] == pytest.approx(1.0)
+
+
+def test_exact_attributions_for_lr_and_ebm_are_additive(toy):
+    """Linear SHAP (LR) and EBM term contributions sum to the log-odds minus the background mean."""
+    from xaiedu.controls import attributions
+    from xaiedu.explain import base_pipeline
+    bg, ex = toy.X.iloc[:60], toy.X.iloc[100:110]
+    for name in ("LR", "EBM"):
+        model, _, _ = fit_model(name, toy.categorical, toy.numeric, toy.X, toy.y, "weight", tune=False)
+        pipe = base_pipeline(model)
+        S = attributions(name, model, bg, ex)
+        assert S.shape == (10, toy.X.shape[1])
+        clf, pre = pipe.named_steps["clf"], pipe.named_steps["pre"]
+        f_ex = clf.decision_function(pre.transform(ex))
+        f_bg = clf.decision_function(pre.transform(bg)).mean()
+        np.testing.assert_allclose(S.sum(1), f_ex - f_bg, atol=1e-6)
+        # the informative feature outranks pure noise
+        a, b = toy.X.columns.get_loc("a"), toy.X.columns.get_loc("b")
+        assert np.abs(S[:, a]).mean() > np.abs(S[:, b]).mean()
+
+
+def test_heldout_importance_is_near_zero_without_signal():
+    from xaiedu.controls import heldout_importance
+    rng = np.random.default_rng(1)
+    X = pd.DataFrame({"u": rng.integers(0, 50, 2000).astype(float), "v": rng.normal(size=2000)})
+    y = pd.Series(rng.integers(0, 2, 2000))
+    model, _, _ = fit_model("XGB", [], ["u", "v"], X.iloc[:1500], y.iloc[:1500], "weight", tune=False)
+    hi = heldout_importance(model, X.iloc[1500:], y.iloc[1500:], seed=0)
+    assert (hi["mean"].abs() < 0.05).all()

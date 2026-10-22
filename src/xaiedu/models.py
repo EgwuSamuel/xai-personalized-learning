@@ -60,6 +60,10 @@ def _estimator(name: str, weighted: bool, pos_weight: float, seed: int):
             raise ImportError("interpret is not installed")
         # 4 outer bags (default 14) keeps the nested CV tractable on a 4-core machine
         return ExplainableBoostingClassifier(outer_bags=4, random_state=seed, n_jobs=1)
+    if name == "EBM_main":  # main effects only: a purely additive glass box (used in E7)
+        if ExplainableBoostingClassifier is None:
+            raise ImportError("interpret is not installed")
+        return ExplainableBoostingClassifier(outer_bags=4, interactions=0, random_state=seed, n_jobs=1)
     raise ValueError(name)
 
 
@@ -77,6 +81,7 @@ PARAM_SPACE = {
     "MLP": {"clf__alpha": loguniform(1e-5, 1e-1),
             "clf__hidden_layer_sizes": [(32,), (64,), (64, 32), (128, 64)]},
     "EBM": {},  # default EBM settings; it is not tuned (costly, robust defaults)
+    "EBM_main": {},
 }
 
 
@@ -86,7 +91,7 @@ def make_pipeline(name: str, categorical, numeric, strategy: str, y=None, seed: 
     ``weight+threshold`` returns the weighted pipeline; threshold tuning is
     applied by the evaluation code on top of it.
     """
-    weighted = strategy in ("weight", "weight+threshold") and name not in ("MLP", "EBM")
+    weighted = strategy in ("weight", "weight+threshold") and name not in ("MLP", "EBM", "EBM_main")
     pos_weight = 1.0
     if y is not None:
         y = np.asarray(y)

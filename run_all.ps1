@@ -3,7 +3,8 @@ $ErrorActionPreference = "Stop"
 New-Item -ItemType Directory -Force results\logs | Out-Null
 python -c "import sys; sys.path.insert(0, 'src'); from xaiedu.data import download_all; download_all()"
 foreach ($s in "01_kaggle_baseline_and_audit", "01b_kaggle_resampling_leakage", "02_uci_predictive_study", "03_oulad_early_warning",
-               "04_explanations_fairness_counterfactuals", "04b_lime_binary_default_comparison", "05_figures_and_tables") {
+               "04_explanations_fairness_counterfactuals", "04b_lime_binary_default_comparison", "05_figures_and_tables",
+               "06_negative_controls", "07_synthetic_signal_cardinality", "08_hyperparameter_sensitivity", "09_negative_control_figures") {
     Write-Host "=== $s"
     python "scripts\$s.py" 2>&1 | Tee-Object -FilePath "results\logs\$s.log"
     if ($LASTEXITCODE -ne 0) { throw "$s failed" }
